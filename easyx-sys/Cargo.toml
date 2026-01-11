@@ -1,0 +1,18 @@
+[package]
+name = "easyx-sys"
+version = "0.1.1"
+authors = ["Your Name <your.email@example.com>"]
+description = "Raw FFI bindings to the EasyX C library"
+license = "MIT"
+edition = "2021"
+
+[lib]
+name = "easyx_sys"
+crate-type = ["lib"]
+
+[dependencies]
+libc.workspace = true
+
+[build-dependencies]
+cc = "1.0"
+bindgen = "0.72.1"

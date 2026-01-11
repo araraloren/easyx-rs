@@ -1,0 +1,21 @@
+[workspace]
+members = [
+    "easyx-sys",
+    "easyx-rs",
+    "easyx-example",
+]
+resolver = "3"
+
+[workspace.dependencies]
+libc = "0.2"
+color-eyre = "0.6"
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation",
+] }
+windows = { version = "0.62", features = [
+    "Win32_Foundation",
+] }
+bitflags = "2.10"
+
+easyx-sys = { path = "./easyx-sys" }
+easyx-rs = { path = "./easyx-rs" }

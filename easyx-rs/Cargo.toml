@@ -1,0 +1,12 @@
+[package]
+name = "easyx-rs"
+version = "0.1.0"
+edition = "2024"
+description = "A high-level Rust wrapper for the EasyX graphics library"
+license = "MIT"
+
+[dependencies]
+easyx-sys.workspace = true
+libc.workspace = true
+windows-sys.workspace = true
+bitflags.workspace = true
