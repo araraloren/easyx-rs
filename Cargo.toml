@@ -17,5 +17,5 @@ windows = { version = "0.62", features = [
 ] }
 bitflags = "2.10"
 
-easyx-sys = { path = "./easyx-sys" }
-easyx = { path = "./easyx-rs" }
+easyx-sys = { version = "0.1", path = "./easyx-sys" }
+easyx = { version = "0.1", path = "./easyx-rs" }
