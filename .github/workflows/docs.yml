@@ -1,0 +1,48 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  # 在 main 分支推送时触发
+  push:
+    branches: [ main ]
+  # 允许手动触发
+  workflow_dispatch:
+
+# 设置权限，允许部署到 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-docs:
+    runs-on: windows-latest
+    
+    steps:
+      # 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      # 安装 Rust
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        
+      # 生成文档
+      - name: Build documentation
+        run: cargo doc --no-deps --release
+        
+      # 复制文档到静态站点目录
+      - name: Prepare docs for deployment
+        run: |
+          mkdir -p ./docs_site
+          cp -r ./target/doc/* ./docs_site/
+          echo '<meta http-equiv="refresh" content="0; url=easyx/index.html" />' > ./docs_site/index.html
+        shell: bash
+        
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs_site
+          enable_jekyll: false
+          force_orphan: true

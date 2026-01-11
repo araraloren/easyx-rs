@@ -1,12 +1,15 @@
 [package]
 name = "easyx"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 authors = [
     "araraloren <blackcatoverwall@gmail.com>",
 ]
 description = "A high-level Rust wrapper for the EasyX graphics library"
+homepage = "https://araraloren.github.io/easyx-rs/"
+documentation = "https://araraloren.github.io/easyx-rs/"
 repository = "https://github.com/araraloren/easyx-rs/"
+readme = "README.md"
 keywords = ["gui", "easyx"]
 license = "MIT"
 
@@ -16,6 +19,8 @@ libc.workspace = true
 windows-sys.workspace = true
 bitflags.workspace = true
 
+# 禁用 docs.rs 构建，使用自己托管的文档
 [package.metadata.docs.rs]
-# 为docs.rs指定只在Windows上构建
-targets = ["x86_64-pc-windows-msvc"]
+# 禁用 docs.rs 构建，使用自定义文档链接
+build-dependencies = []
+targets = []
