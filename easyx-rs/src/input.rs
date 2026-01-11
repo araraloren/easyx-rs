@@ -62,9 +62,15 @@ impl InputBox {
         let mut buffer = vec![0u8; self.max_count as usize];
 
         // 转换各参数为C类型
-        let prompt_ptr = self.prompt.as_ref().map_or(std::ptr::null(), |s| s.as_ptr());
+        let prompt_ptr = self
+            .prompt
+            .as_ref()
+            .map_or(std::ptr::null(), |s| s.as_ptr());
         let title_ptr = self.title.as_ref().map_or(std::ptr::null(), |s| s.as_ptr());
-        let default_ptr = self.default_text.as_ref().map_or(std::ptr::null(), |s| s.as_ptr());
+        let default_ptr = self
+            .default_text
+            .as_ref()
+            .map_or(std::ptr::null(), |s| s.as_ptr());
 
         // 调用底层C函数
         let result = unsafe {

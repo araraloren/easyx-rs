@@ -629,30 +629,76 @@ impl App {
 }
 
 impl App {
+    /// 开始批处理绘图
+    /// 
+    /// 开始批处理绘图模式，后续的绘图操作不会立即显示在屏幕上，
+    /// 需要调用`flush_batch_draw`或`end_batch_draw`才能显示。
+    /// 批处理绘图可以显著提高大量图形绘制的性能。
+    /// 
+    /// # 示例
+    /// ```no_run
+    /// // 开始批处理绘图
+    /// app.begin_batch_draw();
+    /// 
+    /// // 绘制大量图形
+    /// for i in 0..1000 {
+    ///     app.line(0, i, 800, i);
+    /// }
+    /// 
+    /// // 刷新绘制结果
+    /// app.flush_batch_draw();
+    /// 
+    /// // 结束批处理绘图
+    /// app.end_batch_draw();
+    /// ```
     pub fn begin_batch_draw(&self) {
         unsafe {
             easyx_beginbatchdraw();
         }
     }
 
+    /// 刷新批处理绘图
+    /// 
+    /// 将批处理绘图的结果刷新到屏幕上
     pub fn flush_batch_draw(&self) {
         unsafe {
             easyx_flushbatchdraw();
         }
     }
 
+    /// 刷新指定区域的批处理绘图
+    /// 
+    /// 将指定区域内的批处理绘图结果刷新到屏幕上
+    /// 
+    /// # 参数
+    /// - `left`: 区域左上角x坐标
+    /// - `top`: 区域左上角y坐标
+    /// - `right`: 区域右下角x坐标
+    /// - `bottom`: 区域右下角y坐标
     pub fn flush_batch_draw_rect(&self, left: i32, top: i32, right: i32, bottom: i32) {
         unsafe {
             easyx_flushbatchdraw_rect(left, top, right, bottom);
         }
     }
 
+    /// 结束批处理绘图
+    /// 
+    /// 结束批处理绘图模式，并将所有绘图结果刷新到屏幕上
     pub fn end_batch_draw(&self) {
         unsafe {
             easyx_endbatchdraw();
         }
     }
 
+    /// 结束指定区域的批处理绘图
+    /// 
+    /// 结束批处理绘图模式，并将指定区域内的绘图结果刷新到屏幕上
+    /// 
+    /// # 参数
+    /// - `left`: 区域左上角x坐标
+    /// - `top`: 区域左上角y坐标
+    /// - `right`: 区域右下角x坐标
+    /// - `bottom`: 区域右下角y坐标
     pub fn end_batch_draw_rect(&self, left: i32, top: i32, right: i32, bottom: i32) {
         unsafe {
             easyx_endbatchdraw_rect(left, top, right, bottom);
@@ -661,32 +707,73 @@ impl App {
 }
 
 impl App {
+    /// 创建输入框
+    /// 
+    /// 创建一个输入框，用于获取用户输入
+    /// 
+    /// # 参数
+    /// - `max`: 最大输入字符数
+    /// - `prompt`: 提示文本
+    /// 
+    /// # 返回值
+    /// 输入框对象
     pub fn input_box(&self, max: i32, prompt: &str) -> InputBox {
         InputBox::new(max, prompt)
     }
 }
 
 impl App {
+    /// 设置鼠标捕获
+    /// 
+    /// 设置鼠标捕获，使当前窗口接收所有鼠标事件
     pub fn set_capture(&self) {
         unsafe {
             easyx_setcapture();
         }
     }
 
+    /// 释放鼠标捕获
+    /// 
+    /// 释放之前设置的鼠标捕获
     pub fn release_capture(&self) {
         unsafe {
             easyx_releasecapture();
         }
     }
 
+    /// 获取消息（阻塞）
+    /// 
+    /// 获取消息队列中的消息，阻塞直到有消息可用
+    /// 
+    /// # 参数
+    /// - `filter`: 消息过滤类型
+    /// 
+    /// # 返回值
+    /// 捕获到的消息
     pub fn get_message(&self, filter: MessageFilter) -> ExMessage {
         ExMessage::get_message(filter)
     }
 
+    /// 查看消息（非阻塞）
+    /// 
+    /// 查看消息队列中的消息，非阻塞，如果没有消息则返回None
+    /// 
+    /// # 参数
+    /// - `filter`: 消息过滤类型
+    /// - `removemsg`: 是否从消息队列中移除消息
+    /// 
+    /// # 返回值
+    /// 如果有消息则返回Some(ExMessage)，否则返回None
     pub fn peek_message(&self, filter: MessageFilter, removemsg: bool) -> Option<ExMessage> {
         ExMessage::peek_message(filter, removemsg)
     }
 
+    /// 刷新消息队列
+    /// 
+    /// 刷新指定类型的消息队列，处理所有待处理的消息
+    /// 
+    /// # 参数
+    /// - `filter`: 消息过滤类型
     pub fn flush_messages(&self, filter: MessageFilter) {
         unsafe {
             easyx_flushmessage(filter as u8);
@@ -695,7 +782,10 @@ impl App {
 }
 
 impl Drop for App {
-    /// Automatically closes the graphics window when the App instance is dropped.
+    /// App实例销毁时自动关闭图形窗口
+    /// 
+    /// 当App实例被销毁时，会自动调用此方法关闭图形窗口，
+    /// 确保资源正确释放。
     fn drop(&mut self) {
         unsafe {
             easyx_closegraph();

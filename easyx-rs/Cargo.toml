@@ -2,7 +2,12 @@
 name = "easyx-rs"
 version = "0.1.0"
 edition = "2024"
+authors = [
+    "araraloren <blackcatoverwall@gmail.com>",
+]
 description = "A high-level Rust wrapper for the EasyX graphics library"
+repository = "https://github.com/araraloren/easyx-rs/"
+keywords = ["gui", "easyx"]
 license = "MIT"
 
 [dependencies]
