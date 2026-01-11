@@ -2,7 +2,7 @@
 members = [
     "easyx-sys",
     "easyx-rs",
-    "easyx-example",
+    "easyx-example", "tetris",
 ]
 resolver = "3"
 
