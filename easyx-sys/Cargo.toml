@@ -1,6 +1,6 @@
 [package]
 name = "easyx-sys"
-version = "0.1.1"
+version = "0.1.2"
 authors = [
     "araraloren <blackcatoverwall@gmail.com>",
 ]
@@ -20,3 +20,7 @@ libc.workspace = true
 [build-dependencies]
 cc = "1.0"
 bindgen = "0.72.1"
+
+[package.metadata.docs.rs]
+# 为docs.rs指定只在Windows上构建
+targets = ["x86_64-pc-windows-msvc"]

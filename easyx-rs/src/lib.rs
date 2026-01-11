@@ -1,3 +1,6 @@
+#![cfg(windows)]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
+
 //! EasyX-RS
 //!
 //! Rust绑定的EasyX图形库，提供了简单易用的2D图形绘制API，适用于Windows平台的图形应用开发、游戏开发和可视化编程。
