@@ -47,11 +47,15 @@ jobs:
         run: |
           # 清理不需要的文件（可选）
           Remove-Item -Recurse -Force ./target/doc/.gitignore -ErrorAction SilentlyContinue
-          # 确保根目录有 index.html（rustdoc 默认生成）
-          if (!(Test-Path ./target/doc/index.html)) {
-            Write-Error "Documentation not generated!"
+          
+          # 检查主 crate 文档是否生成
+          if (!(Test-Path ./target/doc/easyx/index.html)) {
+            Write-Error "Documentation for easyx crate not generated!"
             exit 1
           }
+          
+          # 为工作区创建根 index.html，重定向到主 crate
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=easyx/index.html" /></head><body></body></html>' > ./target/doc/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
