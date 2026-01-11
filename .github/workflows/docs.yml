@@ -59,4 +59,4 @@ jobs:
           
       # 输出部署结果
       - name: Deployment result
-        run: echo "部署成功! 访问地址: ${{ steps.deployment.outputs.page_url }}"
+        run: echo '部署成功! 访问地址: ${{ steps.deployment.outputs.page_url }}'
