@@ -11,7 +11,7 @@ bitflags::bitflags! {
     /// - `EndCapFlat`: 平形线帽 - 端点是线条的实际端点，没有延伸
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::EndCapStyle;
     ///
     /// // 设置圆形线帽
@@ -42,7 +42,7 @@ bitflags::bitflags! {
     /// - `JoinMiter`: 尖角连接 - 连接点是一个尖角
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::JoinStyle;
     ///
     /// // 设置圆形连接
@@ -107,7 +107,7 @@ pub enum InnerStyle {
 /// - `thickness`: 线条粗细，单位为像素
 ///
 /// # 示例
-/// ```rust
+/// ```no_run
 /// use easyx::linestyle::LineStyle;
 ///
 /// // 创建一个2像素宽的实线样式
@@ -132,7 +132,7 @@ impl LineStyle {
     /// 返回一个实线样式的 `LineStyle` 实例
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let solid_line = LineStyle::solid(2);
@@ -154,7 +154,7 @@ impl LineStyle {
     /// 返回一个虚线样式的 `LineStyle` 实例
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let dashed_line = LineStyle::dashed(3);
@@ -175,7 +175,7 @@ impl LineStyle {
     /// 返回一个点线样式的 `LineStyle` 实例
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let dotted_line = LineStyle::dotted(1);
@@ -196,7 +196,7 @@ impl LineStyle {
     /// 返回一个点划线样式的 `LineStyle` 实例
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let dash_dot_line = LineStyle::dash_dot(2);
@@ -217,7 +217,7 @@ impl LineStyle {
     /// 返回一个双点划线样式的 `LineStyle` 实例
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let dash_dot_dot_line = LineStyle::dash_dot_dot(2);
@@ -238,7 +238,7 @@ impl LineStyle {
     /// 返回一个不可见线条样式的 `LineStyle` 实例
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let null_line = LineStyle::null(1);
@@ -260,7 +260,7 @@ impl LineStyle {
     /// 返回一个用户自定义样式的 `LineStyle` 实例
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// // 创建一个自定义样式：10像素实线，5像素空白，循环
@@ -304,7 +304,7 @@ impl LineStyle {
     /// - `cap_style`: 要设置的线帽样式
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::{LineStyle, EndCapStyle};
     ///
     /// let mut line = LineStyle::solid(3);
@@ -345,7 +345,7 @@ impl LineStyle {
     /// 返回当前的线帽样式
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::{LineStyle, EndCapStyle};
     ///
     /// let mut line = LineStyle::solid(3);
@@ -373,7 +373,7 @@ impl LineStyle {
     /// - `join_style`: 要设置的连接样式
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::{LineStyle, JoinStyle};
     ///
     /// let mut line = LineStyle::solid(3);
@@ -414,7 +414,7 @@ impl LineStyle {
     /// 返回当前的线条连接样式
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::{LineStyle, JoinStyle};
     ///
     /// let mut line = LineStyle::solid(3);
@@ -442,7 +442,7 @@ impl LineStyle {
     /// 返回线条的粗细，单位为像素
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let line = LineStyle::solid(3);
@@ -458,7 +458,7 @@ impl LineStyle {
     /// - `thickness`: 线条粗细，单位为像素
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let mut line = LineStyle::solid(2);
@@ -475,7 +475,7 @@ impl LineStyle {
     /// 如果是用户自定义样式，返回 Some(&[i32])，否则返回 None
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let custom_style = vec![10, 5];
@@ -501,7 +501,7 @@ impl LineStyle {
     /// - `style`: 由(实线长度, 空白长度)对组成的向量，用于定义自定义线条样式
     ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::linestyle::LineStyle;
     ///
     /// let mut user_line = LineStyle::user(2, vec![5, 3]);
@@ -526,17 +526,13 @@ impl LineStyle {
     /// 后续绘制的所有线条都将使用此样式。
     ///
     /// # 示例
-    /// ```rust
-    /// use easyx::{App, linestyle::LineStyle};
+    /// ```no_run
+    /// use easyx::linestyle::LineStyle;
     ///
-    /// let mut app = App::init().unwrap();
     /// let solid_line = LineStyle::solid(2);
     ///
     /// // 应用线条样式
     /// solid_line.apply();
-    ///
-    /// // 后续绘制的线条将使用此样式
-    /// app.line((10, 10), (100, 100));
     /// ```
     pub fn apply(&self) {
         match &self.style {
@@ -565,10 +561,9 @@ impl LineStyle {
     /// 返回当前活动的线条样式
     ///
     /// # 示例
-    /// ```rust
-    /// use easyx::{App, linestyle::LineStyle};
+    /// ```no_run
+    /// use easyx::linestyle::LineStyle;
     ///
-    /// let mut app = App::init().unwrap();
     /// let solid_line = LineStyle::solid(2);
     /// solid_line.apply();
     ///

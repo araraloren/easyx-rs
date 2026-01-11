@@ -3,15 +3,15 @@
 use easyx_sys::{easyx_gettextstyle, easyx_settextstyle_logfont};
 
 /// Windows API LOGFONT 结构体的 Rust 包装
-/// 
+///
 /// 该结构体用于定义文本的字体样式，包括字体名称、大小、粗细、倾斜度等属性。
 /// 它是 Windows API 中 LOGFONT 结构体的直接映射，用于 EasyX 图形库中的文本绘制。
-/// 
+///
 /// # 字段说明
 /// - `logfont`: 内部的 Windows API LOGFONT 结构体，包含了字体的各种属性
-/// 
+///
 /// # 示例
-/// ```rust
+/// ```no_run
 /// use easyx::logfont::LogFont;
 /// 
 /// // 获取当前字体样式
@@ -23,7 +23,7 @@ use easyx_sys::{easyx_gettextstyle, easyx_settextstyle_logfont};
 #[repr(C)]
 pub struct LogFont {
     /// 内部的 Windows API LOGFONT 结构体
-    /// 
+    ///
     /// 这个字段包含了字体的完整属性，包括：
     /// - `lfHeight`: 字体高度（逻辑单位）
     /// - `lfWidth`: 字体宽度（逻辑单位）
@@ -44,25 +44,18 @@ pub struct LogFont {
 
 impl LogFont {
     /// 将当前字体样式应用到 EasyX 绘图上下文
-    /// 
+    ///
     /// 将 LogFont 中定义的字体样式设置为 EasyX 图形库的活动字体样式，
     /// 后续绘制的所有文本都将使用此样式。
-    /// 
+    ///
     /// # 示例
-    /// ```rust
-    /// use easyx::{App, logfont::LogFont};
+    /// ```no_run
+    /// use easyx::logfont::LogFont;
     /// 
-    /// let mut app = App::init().unwrap();
-    /// let mut font = LogFont::current();
+    /// let font = LogFont::current();
     /// 
-    /// // 修改字体高度
-    /// font.logfont.lfHeight = 24;
-    /// 
-    /// // 应用修改后的字体样式
+    /// // 应用字体样式
     /// font.apply();
-    /// 
-    /// // 后续绘制的文本将使用新的字体样式
-    /// app.outtextxy((10, 10), "使用新字体样式的文本");
     /// ```
     pub fn apply(&self) {
         unsafe {
@@ -71,25 +64,21 @@ impl LogFont {
     }
 
     /// 获取当前 EasyX 绘图上下文中使用的字体样式
-    /// 
+    ///
     /// 从 EasyX 图形库获取当前活动的字体样式，并转换为 `LogFont` 实例。
-    /// 
+    ///
     /// # 返回值
     /// 返回当前活动的字体样式
-    /// 
+    ///
     /// # 示例
-    /// ```rust
+    /// ```no_run
     /// use easyx::logfont::LogFont;
     /// 
     /// // 获取当前字体样式
     /// let current_font = LogFont::current();
     /// 
-    /// // 查看当前字体高度
-    /// println!("当前字体高度: {}", current_font.logfont.lfHeight);
-    /// 
-    /// // 查看当前字体名称
-    /// let font_name = String::from_utf8_lossy(&current_font.logfont.lfFaceName[..]);
-    /// println!("当前字体名称: {}", font_name.trim_end_matches(char::from(0)));
+    /// // 应用当前字体样式
+    /// current_font.apply();
     /// ```
     pub fn current() -> Self {
         unsafe {

@@ -8,6 +8,8 @@ use std::fmt;
 ///
 /// # 示例
 /// ```
+/// use easyx::prelude::Color;
+///
 /// // 从 RGB 值创建颜色
 /// let red = Color::new(255, 0, 0);
 ///
@@ -37,6 +39,8 @@ impl Color {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// // 创建红色
     /// let red = Color::new(255, 0, 0);
     ///
@@ -66,6 +70,8 @@ impl Color {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// // 创建红色 (H: 0, S: 1.0, L: 0.5)
     /// let red = Color::from_hsl(0.0, 1.0, 0.5);
     /// ```
@@ -87,6 +93,8 @@ impl Color {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// // 创建红色 (H: 0, S: 1.0, V: 1.0)
     /// let red = Color::from_hsv(0.0, 1.0, 1.0);
     /// ```
@@ -103,6 +111,8 @@ impl Color {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::new(255, 0, 0);
     /// let gray = color.to_gray();
     /// ```
@@ -119,6 +129,8 @@ impl Color {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::new(255, 0, 0);
     /// let (h, s, l) = color.to_hsl();
     /// ```
@@ -138,6 +150,8 @@ impl Color {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::new(255, 0, 0);
     /// let (h, s, v) = color.to_hsv();
     /// ```
@@ -207,6 +221,8 @@ impl fmt::Display for Color {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::new(255, 0, 0);
     /// println!("{}", color); // 输出: Color(r=255, g=0, b=0)
     /// ```
@@ -226,6 +242,8 @@ impl From<u32> for Color {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// let color: Color = 0xFF0000.into(); // 红色
     /// ```
     fn from(value: u32) -> Self {
@@ -244,6 +262,8 @@ impl From<Color> for u32 {
     ///
     /// # 示例
     /// ```
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::new(255, 0, 0);
     /// let value: u32 = color.into(); // 0xFF0000
     /// ```
@@ -347,6 +367,8 @@ impl Color {
     ///
     /// # 示例
     /// ```no_run
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::RED;
     /// color.set_linecolor();
     /// ```
@@ -366,6 +388,8 @@ impl Color {
     ///
     /// # 示例
     /// ```no_run
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::BLUE;
     /// color.set_textcolor();
     /// ```
@@ -385,6 +409,8 @@ impl Color {
     ///
     /// # 示例
     /// ```no_run
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::GREEN;
     /// color.set_fillcolor();
     /// ```
@@ -404,6 +430,8 @@ impl Color {
     ///
     /// # 示例
     /// ```no_run
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::WHITE;
     /// color.set_bkcolor();
     /// ```
@@ -431,6 +459,8 @@ impl Color {
     ///
     /// # 示例
     /// ```no_run
+    /// use easyx::prelude::Color;
+    ///
     /// let color = Color::RED;
     /// color.put_pixel(100, 100);
     /// ```

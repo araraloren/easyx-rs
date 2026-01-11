@@ -6,6 +6,7 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(unnecessary_transmutes)]
+#![allow(unsafe_op_in_unsafe_fn)]
 mod bindings {
     include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 }

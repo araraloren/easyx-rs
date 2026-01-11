@@ -1,9 +1,9 @@
-use easyx_rs::prelude::*;
+use easyx::prelude::*;
 use std::thread::sleep;
 use std::time::Duration;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    easyx_rs::run_flags(800, 600, InitFlags::NoClose, |cx| {
+    easyx::run_flags(800, 600, InitFlags::NoClose, |cx| {
         let prompt_y = 10;
 
         // 设置白色背景和黑色文字

@@ -41,6 +41,27 @@ fn main() {
         .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
         .layout_tests(false)
         .clang_arg("-fms-extensions")
+        // 只生成我们需要的类型和函数
+        .allowlist_type("CExMessage")
+        .allowlist_type("LOGFONT")
+        .allowlist_type("LOGFONTA")
+        .allowlist_type("LOGFONTW")
+        .allowlist_type("POINT")
+        .allowlist_function("easyx_.*")
+        .allowlist_function("CreateRectRgn")
+        .allowlist_var("EASYX_.*")
+        .allowlist_var("R2_.*")
+        .allowlist_var("PS_.*")
+        .allowlist_var("WM_.*")
+        .allowlist_var("FLOODFILL.*")
+        .allowlist_var("ALTERNATE")
+        .allowlist_var("WINDING")
+        .allowlist_var("OPAQUE")
+        .allowlist_var("TRANSPARENT")
+        .allowlist_var("DT_.*")
+        // 隐藏Windows系统类型，只生成我们实际使用的
+        .opaque_type("HWND")
+        // 不将CExMessage设为不透明类型，以便访问其内部字段
         .generate()
         .expect("无法生成绑定");
 

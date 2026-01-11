@@ -11,7 +11,7 @@ EasyX-RS提供了两种方式来初始化图形窗口：
 使用`run`函数初始化窗口，这是最简单的方式：
 
 ```rust
-use easyx_rs::prelude::*;
+use easyx::prelude::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 初始化800x600大小的图形窗口
@@ -27,7 +27,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 使用`run_flags`函数可以设置窗口的初始化标志：
 
 ```rust
-use easyx_rs::prelude::*;
+use easyx::prelude::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 初始化窗口并显示控制台
@@ -123,7 +123,7 @@ App结构体提供了丰富的方法来管理图形窗口和绘图上下文：
 ## 窗口创建示例
 
 ```rust
-use easyx_rs::prelude::*;
+use easyx::prelude::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 初始化窗口，大小为800x600，显示控制台

@@ -131,22 +131,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "easyx-example"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "easyx-rs",
- "windows",
-]
-
-[[package]]
-name = "easyx-rs"
+name = "easyx"
 version = "0.1.0"
 dependencies = [
  "bitflags",
  "easyx-sys",
  "libc",
  "windows-sys",
+]
+
+[[package]]
+name = "easyx-example"
+version = "0.1.0"
+dependencies = [
+ "color-eyre",
+ "easyx",
+ "windows",
 ]
 
 [[package]]

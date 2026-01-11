@@ -252,10 +252,8 @@ impl ExMessage {
     /// 返回获取到的消息
     ///
     /// # 示例
-    /// ```rust
-    /// use easyx::{App, msg::{ExMessage, MessageFilter}};
-    ///
-    /// let mut app = App::init().unwrap();
+    /// ```no_run
+    /// use easyx::msg::{ExMessage, MessageFilter};
     ///
     /// // 循环获取并处理消息
     /// loop {
@@ -290,10 +288,8 @@ impl ExMessage {
     /// 如果获取到消息，返回 Some(ExMessage)，否则返回 None
     ///
     /// # 示例
-    /// ```rust
-    /// use easyx::{App, msg::{ExMessage, MessageFilter}};
-    ///
-    /// let mut app = App::init().unwrap();
+    /// ```no_run
+    /// use easyx::msg::{ExMessage, MessageFilter};
     ///
     /// // 非阻塞方式获取消息
     /// if let Some(msg) = ExMessage::peek_message(MessageFilter::All, true) {

@@ -32,7 +32,8 @@
 //! ### 第一个示例
 //!
 //! ```no_run
-//! use easyx_rs::prelude::*;
+//! use easyx::prelude::*;
+//! use easyx::run;
 //!
 //! fn main() -> Result<(), Box<dyn std::error::Error>> {
 //!     // 初始化图形窗口，大小为800x600
@@ -115,67 +116,83 @@
 //! ### 初始化窗口
 //!
 //! ```no_run
-//! // 基本初始化
-//! run(800, 600, |app| {
-//!     // 你的绘图代码
-//!     Ok(())
-//! })
+//! use easyx::*;
 //!
-//! // 使用初始化标志
-//! run_flags(800, 600, InitFlags::ShowConsole, |app| {
-//!     // 你的绘图代码
-//!     Ok(())
-//! })
+//! fn main() -> Result<(), Box<dyn std::error::Error>> {
+//!     // 基本初始化
+//!     run(800, 600, |app| {
+//!         // 你的绘图代码
+//!         Ok(())
+//!     })
+//! }
 //! ```
 //!
 //! ### 绘图示例
 //!
 //! ```no_run
-//! // 绘制直线
-//! app.line(100, 100, 300, 300);
+//! use easyx::prelude::*;
+//! use easyx::run;
 //!
-//! // 绘制矩形
-//! app.rectangle(100, 100, 300, 200);
-//!
-//! // 绘制填充矩形
-//! app.set_fillcolor(&Color::BLUE);
-//! app.fill_rectangle(100, 100, 300, 200);
-//!
-//! // 绘制圆形
-//! app.circle(200, 200, 50);
-//!
-//! // 绘制填充圆形
-//! app.set_fillcolor(&Color::RED);
-//! app.fill_circle(200, 200, 50);
+//! fn main() -> Result<(), Box<dyn std::error::Error>> {
+//!     run(800, 600, |app| {
+//!         // 绘制直线
+//!         app.line(100, 100, 300, 300);
+//!         
+//!         // 绘制矩形
+//!         app.rectangle(100, 100, 300, 200);
+//!         
+//!         // 绘制填充矩形
+//!         app.set_fillcolor(&Color::BLUE);
+//!         app.fill_rectangle(100, 100, 300, 200);
+//!         
+//!         // 绘制圆形
+//!         app.circle(200, 200, 50);
+//!         
+//!         // 绘制填充圆形
+//!         app.set_fillcolor(&Color::RED);
+//!         app.fill_circle(200, 200, 50);
+//!         
+//!         Ok(())
+//!     })
+//! }
 //! ```
 //!
 //! ### 事件处理
 //!
 //! ```no_run
-//! loop {
-//!     // 非阻塞获取鼠标消息
-//!     if let Some(msg) = app.peek_message(MessageFilter::Mouse, true) {
-//!         match msg.msg {
-//!             Message::Mouse { x, y, button, .. } => {
-//!                 // 处理鼠标事件
-//!                 println!("Mouse: x={}, y={}, button={:?}", x, y, button);
-//!             }
-//!             _ => {}
-//!         }
-//!     }
-//!     
-//!     // 非阻塞获取键盘消息
-//!     if let Some(msg) = app.peek_message(MessageFilter::KeyBoard, true) {
-//!         match msg.msg {
-//!             Message::KeyBoard { vkcode, .. } => {
-//!                 // 处理键盘事件
-//!                 if vkcode == KeyCode::Escape {
-//!                     break;
+//! use easyx::prelude::*;
+//! use easyx::run;
+//!
+//! fn main() -> Result<(), Box<dyn std::error::Error>> {
+//!     run(800, 600, |app| {
+//!         loop {
+//!             // 非阻塞获取鼠标消息
+//!             if let Some(msg) = app.peek_message(MessageFilter::Mouse, true) {
+//!                 match msg.msg {
+//!                     Message::Mouse { x, y, lbutton, mbutton, rbutton, .. } => {
+//!                         // 处理鼠标事件
+//!                         println!("Mouse: x={}, y={}, lbutton={}, mbutton={}, rbutton={}", x, y, lbutton, mbutton, rbutton);
+//!                     }
+//!                     _ => {}
 //!                 }
 //!             }
-//!             _ => {}
+//!             
+//!             // 非阻塞获取键盘消息
+//!             if let Some(msg) = app.peek_message(MessageFilter::KeyBoard, true) {
+//!                 match msg.msg {
+//!                     Message::KeyBoard { vkcode, .. } => {
+//!                         // 处理键盘事件
+//!                         if vkcode == KeyCode::Escape {
+//!                             break;
+//!                         }
+//!                     }
+//!                     _ => {}
+//!                 }
+//!             }
 //!         }
-//!     }
+//!         
+//!         Ok(())
+//!     })
 //! }
 //! ```
 //!
@@ -222,9 +239,10 @@ pub mod msg;
 /// 预导入模块，包含常用的类型和函数
 ///
 /// 通过导入此模块，可以方便地使用EasyX-RS的核心功能，无需逐个导入各个类型。
-///
+/// # 示例
 /// ```no_run
-/// use easyx_rs::prelude::*;
+/// use easyx::prelude::*;
+/// use easyx::run;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
 ///     run(800, 600, |app| {
@@ -276,7 +294,8 @@ pub mod prelude {
 /// # 示例
 ///
 /// ```no_run
-/// use easyx_rs::*;
+/// use easyx::prelude::*;
+/// use easyx::run_flags;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
 ///     // 初始化窗口并显示控制台
@@ -320,7 +339,8 @@ where
 /// # 示例
 ///
 /// ```no_run
-/// use easyx_rs::*;
+/// use easyx::prelude::*;
+/// use easyx::run;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
 ///     // 初始化800x600大小的图形窗口

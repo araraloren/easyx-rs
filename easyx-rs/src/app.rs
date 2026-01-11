@@ -637,19 +637,28 @@ impl App {
     /// 
     /// # 示例
     /// ```no_run
-    /// // 开始批处理绘图
-    /// app.begin_batch_draw();
+    /// use easyx::*;
     /// 
-    /// // 绘制大量图形
-    /// for i in 0..1000 {
-    ///     app.line(0, i, 800, i);
+    /// fn main() -> Result<(), Box<dyn std::error::Error>> {
+    ///     // 初始化图形窗口
+    ///     run(800, 600, |app| {
+    ///         // 开始批处理绘图
+    ///         app.begin_batch_draw();
+    ///         
+    ///         // 绘制大量图形
+    ///         for i in 0..1000 {
+    ///             app.line(0, i, 800, i);
+    ///         }
+    ///         
+    ///         // 刷新绘制结果
+    ///         app.flush_batch_draw();
+    ///         
+    ///         // 结束批处理绘图
+    ///         app.end_batch_draw();
+    ///         
+    ///         Ok(())
+    ///     })
     /// }
-    /// 
-    /// // 刷新绘制结果
-    /// app.flush_batch_draw();
-    /// 
-    /// // 结束批处理绘图
-    /// app.end_batch_draw();
     /// ```
     pub fn begin_batch_draw(&self) {
         unsafe {

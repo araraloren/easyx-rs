@@ -6,6 +6,8 @@ use easyx_sys::*;
 ///
 /// # 示例
 /// ```no_run
+/// use easyx::prelude::PolyFillMode;
+///
 /// // 设置多边形填充模式为交替模式
 /// let mode = PolyFillMode::alternate();
 /// mode.apply();
@@ -75,6 +77,8 @@ impl PolyFillMode {
 ///
 /// # 示例
 /// ```no_run
+/// use easyx::prelude::BkMode;
+///
 /// // 设置背景模式为透明
 /// let mode = BkMode::transparent();
 /// mode.apply();
@@ -141,11 +145,12 @@ bitflags::bitflags! {
     /// 用于控制文本绘制的各种格式选项，可以通过位或操作组合多个选项
     ///
     /// # 示例
-    /// ```no_run
-    /// // 设置文本居中对齐并自动换行
-    /// let format = DrawTextFormat::Center | DrawTextFormat::WordBreak;
-    /// app.draw_text("Hello, World!", rect, format);
-    /// ```
+/// ```no_run
+/// use easyx::prelude::DrawTextFormat;
+///
+/// // 设置文本居中对齐并自动换行
+/// let format = DrawTextFormat::Center | DrawTextFormat::WordBreak;
+/// ```
     #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
     pub struct DrawTextFormat: u32 {
         /// 文字底部对齐
@@ -247,6 +252,8 @@ bitflags::bitflags! {
 ///
 /// # 示例
 /// ```no_run
+/// use easyx::prelude::Rop2;
+///
 /// // 设置光栅操作模式为异或模式
 /// let mode = Rop2::xor_pen();
 /// mode.apply();

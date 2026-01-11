@@ -9,7 +9,7 @@ Color模块提供了强大的颜色处理功能，支持多种颜色创建方式
 使用`Color::new`方法可以创建RGB颜色：
 
 ```rust
-use easyx_rs::prelude::*;
+use easyx::prelude::*;
 
 // 创建红色 (R: 255, G: 0, B: 0)
 let red = Color::new(255, 0, 0);
@@ -154,7 +154,7 @@ let xor_color = color1 ^ color2; // 结果: (255, 255, 0)
 ## 颜色使用示例
 
 ```rust
-use easyx_rs::prelude::*;
+use easyx::prelude::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     run(800, 600, |app| {

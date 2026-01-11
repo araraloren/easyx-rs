@@ -31,7 +31,7 @@ easyx-rs = "0.1.0"
 ### 第一个示例
 
 ```rust
-use easyx_rs::prelude::*;
+use easyx::prelude::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 初始化图形窗口，大小为800x600
