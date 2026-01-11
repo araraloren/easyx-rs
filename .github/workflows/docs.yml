@@ -9,7 +9,7 @@ on:
 
 # 设置权限，允许部署到 GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -38,11 +38,25 @@ jobs:
           echo '<meta http-equiv="refresh" content="0; url=easyx/index.html" />' > ./docs_site/index.html
         shell: bash
         
+      # 配置 GitHub Pages
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+        
+      # 上传文档内容
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 上传文档目录
+          path: './docs_site'
+        
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+        id: deployment
+        uses: actions/deploy-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs_site
-          enable_jekyll: false
-          force_orphan: true
+          # 部署配置
+          artifact_name: github-pages
+          
+      # 输出部署结果
+      - name: Deployment result
+        run: echo "部署成功! 访问地址: ${{ steps.deployment.outputs.page_url }}"
