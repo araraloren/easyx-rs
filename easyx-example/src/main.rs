@@ -1,74 +1,96 @@
 use easyx::prelude::*;
-use std::thread::sleep;
-use std::time::Duration;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     easyx::run_flags(800, 600, InitFlags::NoClose, |cx| {
-        let prompt_y = 10;
+        let bkcolor = Color::DARKGRAY;
+        let mut mouse_text = String::default();
+        let mut keyboard_text = String::default();
+        let mut stop = false;
 
-        // 设置白色背景和黑色文字
-        cx.set_textstyle(30, 0, "微软雅黑");
+        cx.begin_batch_draw();
 
-        cx.set_textcolor(&Color::RED);
+        cx.peek_message(MessageFilter::All, false);
 
-        let prompt = "Press any key or move mouse to test message handling...";
-        let esc = "按 ESC 退出";
+        while !stop {
+            // 清理整个设备
+            cx.clear_device();
 
-        cx.out_text(10, prompt_y, prompt);
-        cx.out_text(10, prompt_y + 30, esc);
-        let mouse_start = prompt_y + 30 + cx.text_height(esc) + 5;
-        let mut key_start = mouse_start;
-        let mut mouse_last_x = -1;
-        let mut key_last_x = -1;
-
-        loop {
-            // 非阻塞获取消息
-
-            if let Some(msg) = cx.peek_message(MessageFilter::Mouse, true)
-                && let Message::Mouse { x, y, .. } = msg.msg
-            {
-                let text = format!("Mouse position: X: {}, Y: {}", x, y);
-                let width = cx.text_width(&text);
-                let height = cx.text_height(&text);
-
-                // 使用矩形填充整个窗口作为白色背景
-                if mouse_last_x == -1 {
-                    mouse_last_x = 10 + width;
+            while let Some(msg) = cx.peek_message(MessageFilter::All, true) {
+                if msg.ty == ExMessageType::KeyUp {
+                    if let Message::KeyBoard {
+                        vkcode, prevdown, ..
+                    } = msg.msg
+                    {
+                        if vkcode == KeyCode::Escape && prevdown {
+                            // ESC key
+                            stop = true;
+                            break;
+                        }
+                        keyboard_text = format!("Key pressed: VK Code: {:?}", vkcode);
+                    }
+                } else if let Message::Mouse {
+                    x: pos_x, y: pos_y, ..
+                } = msg.msg
+                {
+                    mouse_text = format!("Mouse position: X: {}, Y: {}", pos_x, pos_y);
                 }
-                cx.set_textcolor(&Color::RED);
-                cx.set_fillcolor(&Color::BLACK);
-                cx.fill_rectangle(5, mouse_start, mouse_last_x, mouse_start + 10 + height);
-                cx.out_text(10, mouse_start + 5, text.as_str());
-                key_start = mouse_start + 10 + height + 5;
-                mouse_last_x = 10 + width;
             }
 
-            if let Some(msg) = cx.peek_message(MessageFilter::KeyBoard, true)
-                && let Message::KeyBoard { vkcode, .. } = msg.msg
-            {
-                if vkcode == KeyCode::Escape {
-                    // ESC key
-                    break;
-                }
-                // 使用矩形填充整个窗口作为白色背景
-                let text = format!("Key pressed: VK Code: {:?}", vkcode);
-                let width = cx.text_width(&text);
-                let height = cx.text_height(&text);
+            // 清楚整个屏幕，填充背景色
+            cx.set_fillcolor(&bkcolor);
+            cx.fill_rectangle(0, 0, cx.width(), cx.height());
 
-                // 使用矩形填充整个窗口作为白色背景
-                if key_last_x == -1 {
-                    key_last_x = 10 + width;
-                }
-                cx.set_textcolor(&Color::RED);
-                cx.set_fillcolor(&Color::BLACK);
-                cx.fill_rectangle(5, key_start, key_last_x, key_start + 10 + height);
-                cx.out_text(10, key_start + 5, text.as_str());
-                key_last_x = 10 + width;
+            // 设置字体
+            cx.set_textstyle(30, 0, "Arial");
+
+            let render_text = |text: &str, x: i32, y: i32, w: i32, color: Color| -> i32 {
+                let (width, height) = (cx.text_width(text), cx.text_height(text));
+
+                assert!(w >= width);
+
+                cx.set_linecolor(&Color::BLACK);
+                cx.rectangle(x - 1, y - 1, x + w + 1, y + height + 1);
+                cx.set_bkcolor(&bkcolor);
+                cx.set_textcolor(&color);
+                cx.out_text(x, y, text);
+                y + height
+            };
+
+            // 绘制键盘按键信息
+            if !keyboard_text.is_empty() {
+                render_text(&keyboard_text, 10, 90, 600, Color::LIGHTBLUE);
             }
 
-            // 使用标准库的sleep函数代替app.delay
-            sleep(Duration::from_millis(20));
+            // 绘制鼠标的坐标信息
+            if !mouse_text.is_empty() {
+                render_text(&mouse_text, 10, 130, 600, Color::CYAN);
+            }
+
+            let render_text_boxed = |text: &str, x: i32, y: i32, color: Color| {
+                let (width, height) = (cx.text_width(text), cx.text_height(text));
+
+                cx.set_linecolor(&Color::WHITE);
+                cx.rectangle(x - 1, y - 1, x + width + 1, y + height + 1);
+                cx.set_bkcolor(&bkcolor);
+                cx.set_textcolor(&color);
+                cx.out_text(x, y, text);
+            };
+
+            // 绘制文本
+            render_text_boxed(
+                "Press any key or move mouse to test message handling...",
+                10,
+                10,
+                Color::BLUE,
+            );
+
+            // 绘制文本
+            render_text_boxed("Press Esc exit", 10, 50, Color::MAGENTA);
+
+            cx.flush_batch_draw();
         }
+
+        cx.end_batch_draw();
 
         Ok(())
     })

@@ -370,6 +370,22 @@ impl App {
     pub fn put_pixel(&self, x: i32, y: i32, color: &Color) {
         color.put_pixel(x, y);
     }
+
+    /// 获取当前背景颜色
+    ///
+    /// # 返回值
+    /// 当前背景颜色
+    pub fn get_bkcolor(&self) -> Color {
+        Color::get_bkcolor()
+    }
+
+    /// 设置当前背景颜色
+    ///
+    /// # 参数
+    /// * `color` - 背景颜色。
+    pub fn set_bkcolor(&self, color: &Color) {
+        color.set_bkcolor();
+    }
 }
 
 impl App {
