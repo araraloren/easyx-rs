@@ -27,6 +27,9 @@ jobs:
   build-docs:
     runs-on: windows-latest  # 关键：使用 Windows 环境以支持 EasyX
 
+    env:
+      RUSTDOCFLAGS: "--generate-link-to-definition -Z unstable-options"
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
