@@ -42,7 +42,7 @@ jobs:
 
       - name: Build documentation
         run: |
-          cargo doc --no-deps --release --generate-link-to-definition
+          cargo doc --no-deps --release
           # 如果你的 crate 有默认特性依赖 easyx，可能需要显式启用
           # cargo doc --no-deps --release --features graphics 
 
