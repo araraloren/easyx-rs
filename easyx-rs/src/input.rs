@@ -1,7 +1,10 @@
 use easyx_sys::*;
 use std::ffi::{CStr, CString};
 
-/// InputBox参数结构体，用于构造输入框的各种参数
+/// 输入框参数结构体，用于构造输入框的各种参数
+///
+/// InputBox 结构体是 EasyX-RS 中用于创建和配置输入框的核心类型，
+/// 支持设置输入框的最大输入字符数、提示文本、标题、默认文本、宽度、高度等属性
 pub struct InputBox {
     max_count: i32,
     prompt: Option<CString>,
@@ -14,6 +17,13 @@ pub struct InputBox {
 
 impl InputBox {
     /// 创建InputBox参数实例，至少需要两个参数：max_count和prompt
+    ///
+    /// # 参数
+    /// - `max_count`: 输入框允许输入的最大字符数
+    /// - `prompt`: 输入框的提示文本
+    ///
+    /// # 返回值
+    /// 配置好基本参数的 InputBox 实例
     pub fn new(max_count: i32, prompt: &str) -> Self {
         Self {
             max_count,
@@ -27,36 +37,70 @@ impl InputBox {
     }
 
     /// 设置输入框标题
+    /// 
+    /// # 参数
+    /// - `title`: 输入框的标题文本
+    /// 
+    /// # 返回值
+    /// 更新后的 InputBox 实例，用于链式调用
     pub fn with_title(mut self, title: &str) -> Self {
         self.title = Some(CString::new(title).expect("Invalid C string"));
         self
     }
 
     /// 设置输入框默认文本
+    /// 
+    /// # 参数
+    /// - `default_text`: 输入框的默认文本内容
+    /// 
+    /// # 返回值
+    /// 更新后的 InputBox 实例，用于链式调用
     pub fn with_default_text(mut self, default_text: &str) -> Self {
         self.default_text = Some(CString::new(default_text).expect("Invalid C string"));
         self
     }
 
     /// 设置输入框宽度
+    /// 
+    /// # 参数
+    /// - `width`: 输入框的宽度，0表示使用默认宽度
+    /// 
+    /// # 返回值
+    /// 更新后的 InputBox 实例，用于链式调用
     pub fn with_width(mut self, width: i32) -> Self {
         self.width = width;
         self
     }
 
     /// 设置输入框高度
+    /// 
+    /// # 参数
+    /// - `height`: 输入框的高度，0表示使用默认高度
+    /// 
+    /// # 返回值
+    /// 更新后的 InputBox 实例，用于链式调用
     pub fn with_height(mut self, height: i32) -> Self {
         self.height = height;
         self
     }
 
     /// 设置是否只显示OK按钮
+    /// 
+    /// # 参数
+    /// - `only_ok`: 是否只显示OK按钮，true表示只显示OK按钮，false表示显示OK和Cancel按钮
+    /// 
+    /// # 返回值
+    /// 更新后的 InputBox 实例，用于链式调用
     pub fn with_only_ok(mut self, only_ok: bool) -> Self {
         self.only_ok = only_ok;
         self
     }
 
     /// 调用底层sys函数，显示输入框并获取结果
+    /// 
+    /// # 返回值
+    /// - 如果用户点击了OK按钮，返回Some(String)，包含用户输入的文本
+    /// - 如果用户点击了Cancel按钮或关闭了窗口，返回None
     pub fn show(&self) -> Option<String> {
         // 创建足够大的缓冲区来存储输入结果
         let mut buffer = vec![0u8; self.max_count as usize];

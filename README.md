@@ -2,6 +2,8 @@
 
 Rust绑定的EasyX图形库，提供了简单易用的2D图形绘制API，适用于Windows平台的图形应用开发、游戏开发和可视化编程。
 
+[English Version](README-en.md)
+
 ## 项目概述
 
 EasyX-RS是一个基于C++ EasyX图形库的Rust绑定，提供了高性能、跨版本兼容的2D图形绘制功能。EasyX是一个专为Windows平台设计的简单易用的图形库，广泛应用于教学、游戏开发和可视化编程领域。
@@ -280,11 +282,6 @@ app.end_batch_draw();
 ## 贡献
 
 欢迎提交 Issue 和 Pull Request！
-
-## 联系方式
-
-- 项目地址：https://github.com/yourusername/easyx-rs
-- 问题反馈：https://github.com/yourusername/easyx-rs/issues
 
 ## 致谢
 
